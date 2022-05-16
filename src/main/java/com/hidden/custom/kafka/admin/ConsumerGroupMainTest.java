@@ -1,5 +1,6 @@
 package com.hidden.custom.kafka.admin;
 
+import kafka.coordinator.group.GroupOverview;
 import org.apache.kafka.clients.admin.app.KafkaConsumerGroupService;
 import org.apache.kafka.clients.admin.model.PartitionAssignmentState;
 
@@ -11,10 +12,18 @@ import java.util.List;
 public class ConsumerGroupMainTest {
     public static void main(String[] args) {
         String brokerUrl = "localhost:9092";
-        String group = "CONSUMER_GROUP_ID";
-        testKafkaConsumerGroupCustomService(brokerUrl,group);
-        System.out.println("----------------------------------------------");
-        testKafkaConsumerGroupService(brokerUrl,group);
+
+        kafka.admin.AdminClient client = kafka.admin.AdminClient.createSimplePlaintext(brokerUrl);
+        scala.collection.immutable.List<GroupOverview> groupOverviewList = client.listAllConsumerGroupsFlattened();
+        groupOverviewList.foreach(t -> {
+            String groupId = t.groupId();
+            System.out.println(groupId);
+            testKafkaConsumerGroupCustomService(brokerUrl, groupId);
+            System.out.println(t + "----------------------------------------------");
+            testKafkaConsumerGroupService(brokerUrl, groupId);
+            System.out.println("=====================");
+            return 0;
+        });
     }
 
 
@@ -34,3 +43,4 @@ public class ConsumerGroupMainTest {
         service.close();
     }
 }
+
