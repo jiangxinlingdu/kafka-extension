@@ -24,12 +24,12 @@ public class TestDelayTime {
          test2           1          0               334             334             -               -               -
          test2           0          333             333             0               -               -               -
          */
-        long lagSeconds = getConsumerLagSeconds(topicName, brokerUrl, groupId, partition, offset);
+        long lagSeconds = getConsumerLagSecondsByPartition(topicName, brokerUrl, groupId, partition, offset);
 
         System.out.println(lagSeconds);
     }
 
-    private static long getConsumerLagSeconds(String topicName, String brokerUrl, String groupId, int partition, int offset) {
+    private static long getConsumerLagSecondsByPartition(String topicName, String brokerUrl, String groupId, int partition, int offset) {
         long lagSeconds = 0;
         Properties props = new Properties();
         props.put("bootstrap.servers", brokerUrl);
