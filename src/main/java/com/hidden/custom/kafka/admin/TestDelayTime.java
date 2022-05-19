@@ -42,8 +42,8 @@ public class TestDelayTime {
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
 
         //要发送自定义对象，需要指定对象的反序列化类
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer");
         KafkaConsumer<String, Object> consumer = new KafkaConsumer<String, Object>(props);
         consumer.assign(Arrays.asList(new TopicPartition(topicName, partition)));
         //consumer.seekToBeginning(Arrays.asList(new TopicPartition(topicName, 0)));//不改变当前offset
