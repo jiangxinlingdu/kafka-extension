@@ -34,7 +34,7 @@ public class TestDelayTime {
         Properties props = new Properties();
         props.put("bootstrap.servers", brokerUrl);
         props.put("group.id", groupId);
-        props.put("enable.auto.commit", "true");
+        props.put("enable.auto.commit", "false");
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
 
